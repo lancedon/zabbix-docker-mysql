@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+        zabbix-server:
+                restart: always
+                image: zabbix/zabbix-server-mysql:latest
+                ports:
+                - "10050:10050"
+                - "10051:10051"
+                environment:
+                        DB_SERVER_HOST: YOUR_IP
+                        MYSQL_USER: MYSQL_USER
+                        MYSQL_PASSWORD: MYSQL_PASS
+        
+        zabbix-web-nginx-mysql:
+                restart: always
+                image: zabbix/zabbix-web-nginx-mysql:latest
+                ports:
+                        - "80:80"
+                links:
+                        - zabbix-server:zabbix-server
+                environment:
+                        DB_SERVER_HOST: YOUR_IP
+                        MYSQL_USER: MYSQL_USER
+                        MYSQL_PASSWORD: MYSQL_PASS 
+                        ZBX_SERVER_HOST: ZABBIX_SERVER_HOST
+                        PHP_TZ: YOUR_PHP_TIME_ZONE

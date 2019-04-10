@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+        zabbix-agent:
+                restart: always
+                image: zabbix/zabbix-agent:latest
+                ports:
+                        - "10050:10050"
+                environment:    
+                        ZBX_HOSTNAME: YOUR_SERVER_NAME
+                        ZBX_SERVER_HOST: YOUR_IP
